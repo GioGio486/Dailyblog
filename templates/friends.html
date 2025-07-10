@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Friends' Posts{% endblock %}
+{% block content %}
+  <h2>Friends' Posts</h2>
+  {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <p>{{ post.content }}</p>
+        <small class="text-muted">By {{ post.author.username }}</small>
+      </div>
+    </div>
+  {% else %}
+    <p>No posts visible from friends.</p>
+  {% endfor %}
+{% endblock %}

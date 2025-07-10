@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Public Posts{% endblock %}
+{% block content %}
+  <h1 class="text-center mb-4">Welcome to the Daily Blog</h1>
+
+  <div class="row g-3 mb-5 gallery">
+    <div class="col-md-4">
+      <img src="https://greggvanourek.com/wp-content/uploads/2023/08/Nature-path-by-water-trees-and-mountains-AdobeStock_291242770-768x463.jpeg" alt="Nature" />
+    </div>
+    <div class="col-md-4">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Coffee" />
+    </div>
+    <div class="col-md-4">
+      <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/45/2022/03/what-is-a-blog-1.webp" alt="Blogging" />
+    </div>
+  </div>
+
+  <h2>Public Posts</h2>
+  {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <p>{{ post.content }}</p>
+        <small class="text-muted">By {{ post.author.username }} | Visibility: {{ post.visibility }}</small>
+      </div>
+    </div>
+  {% else %}
+    <p>No public posts yet.</p>
+  {% endfor %}
+
+  <div class="text-center mt-5">
+    <img src="{{ url_for('static', filename='Screenshot 2025-07-05 000149.png') }}" alt="Inspirational" class="bottom-image" />
+  </div>
+{% endblock %}

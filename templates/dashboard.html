@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <h2>Your Posts</h2>
+  <form method="POST" class="mb-4" style="max-width:600px;">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.content.label(class="form-label") }}
+      {{ form.content(class="form-control", rows="3") }}
+    </div>
+    <div class="mb-3">
+      {{ form.visibility.label(class="form-label") }}
+      {{ form.visibility(class="form-select") }}
+    </div>
+    {{ form.submit(class="btn btn-success") }}
+  </form>
+
+  {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <p>{{ post.content }}</p>
+        <small class="text-muted">Visibility: {{ post.visibility }}</small>
+      </div>
+    </div>
+  {% else %}
+    <p>You have no posts yet.</p>
+  {% endfor %}
+{% endblock %}

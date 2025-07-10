@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4 text-center">All Users</h2>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Username</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>
+          {{ user.username }}
+          {% if user.username|lower == 'admin' %}
+            <span class="badge bg-warning text-dark ms-2">Admin</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if user.id in friends_ids %}
+            <span class="badge bg-success">Friend</span>
+          {% elif user.id in sent %}
+            <span class="badge bg-info text-dark">Request Sent</span>
+          {% elif user.id in received %}
+            <span class="badge bg-warning text-dark">Sent You Request</span>
+          {% else %}
+            <span class="badge bg-secondary">Not Friend</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if user.id not in friends_ids and user.id not in sent and user.id not in received %}
+            <a href="{{ url_for('send_request', user_id=user.id) }}" class="btn btn-sm btn-primary">Add Friend</a>
+          {% elif user.id in received %}
+            <a href="{{ url_for('requests') }}" class="btn btn-sm btn-warning">Respond</a>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
